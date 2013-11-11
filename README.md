@@ -3,7 +3,7 @@ SKC-Core Mod
 
 ### Links of Interest ###
 
-- [Minecraft Forum Thread](http://www.minecraftforum.net/topic/1876523-)
+- [Minecraft Forum Thread](http://www.minecraftforum.net/topic/1909056-)
 - [Official Wiki](https://github.com/SackCastellon/SKC-Core/wiki) (Under Construction)
 - [Issue Tracking System](https://github.com/SackCastellon/SKC-Core/issues)
 - [Source Code](https://github.com/SackCastellon/SKC-Core)
@@ -17,7 +17,7 @@ SKC-Core Mod
 
 ![License](http://i.creativecommons.org/l/by-nc-sa/3.0/80x15.png)
 
-[SKC-Core Mod](http://www.minecraftforum.net/topic/1876523-) by [SackCastellon](http://www.minecraftforum.net/user/1775848-sackcastellon/) is licensed under a [Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.](http://creativecommons.org/licenses/by-nc-sa/3.0/)
+[SKC-Core Mod](http://www.minecraftforum.net/topic/1909056-) by [SackCastellon](http://www.minecraftforum.net/user/1775848-sackcastellon/) is licensed under a [Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.](http://creativecommons.org/licenses/by-nc-sa/3.0/)
 
 #### License of the Source Code ####
 
