@@ -6,8 +6,8 @@ SKC-Core Mod
 - [Minecraft Forum Thread](http://www.minecraftforum.net/topic/1909056-)
 - [Official Wiki](https://github.com/SackCastellon/SKC-Core/wiki) (Under Construction)
 - [Issue Tracking System](https://github.com/SackCastellon/SKC-Core/issues)
-- [Source Code](https://github.com/SackCastellon/SKC-Core)
-- [Language Files](https://github.com/SackCastellon/SKC-Core/tree/master/assets/core/lang) (For anyone who wants to translate the mod to his own language.)
+- [Source Code](https://github.com/SackCastellon/SKC-Core/tree/master/src)
+- [Language Files](https://github.com/SackCastellon/SKC-Core/tree/master/src/main/resources/assets/core/lang) (For anyone who wants to translate the mod to his own language.)
 
 * * *
 
