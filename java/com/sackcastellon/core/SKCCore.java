@@ -1,28 +1,22 @@
-/*
- * SKC-Core Mod created by SackCastellon is licensed under a
+/**
+ * SKC-Core Mod
+ * Copyright © 2013-2014 SackCastellon
+ * This modification and his resources are licensed under a
  * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
  * 
  * 		http://creativecommons.org/licenses/by-nc-sa/3.0/
- * 
- * The source code of SKC-Core Mod created by SackCastellon is
- * licensed under a Creative Commons Attribution 3.0 Unported License,
- * 
- * 		http://creativecommons.org/licenses/by/3.0/
- * 
- * The source code of SKC-Core Mod created by SackCastellon can be found at:
- * 
- * 		https://github.com/SackCastellon/SKC-Core
  */
-
-package SackCastellon.core;
+package com.sackcastellon.core;
 
 import java.io.File;
 
-import SackCastellon.core.handler.ConfigHandler;
-import SackCastellon.core.handler.SkcEventHandler;
-import SackCastellon.core.helper.Version;
-import SackCastellon.core.proxy.CommonProxy;
-import SackCastellon.core.reference.Reference;
+import com.sackcastellon.core.event.SKCEvents;
+import com.sackcastellon.core.handler.ConfigHandler;
+import com.sackcastellon.core.helper.VersionHelper;
+import com.sackcastellon.core.lib.Reference;
+import com.sackcastellon.core.proxy.CommonProxy;
+
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -33,7 +27,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
 @Mod(modid=Reference.ID, name=Reference.NAME, version=Reference.VERSION, dependencies=Reference.DEPENDENCIES)
 public class SKCCore {
-	
+
 	@Instance(Reference.ID)
 	public static SKCCore instance;
 	
@@ -43,12 +37,12 @@ public class SKCCore {
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event)  {
 		
-		SkcEventHandler.init();
+		FMLCommonHandler.instance().bus().register(new SKCEvents());
 		
 		ConfigHandler.loadConfig(new File(event.getModConfigurationDirectory(), Reference.ConfigPath));
 		
 		if (ConfigHandler.CheckVersion) {
-			Version.check(Reference.ID, Reference.VERSION, Reference.URL);
+			VersionHelper.check(Reference.ID, Reference.NAME, Reference.VERSION, Reference.URL);
 		}
 		
 	}
@@ -58,5 +52,4 @@ public class SKCCore {
 	
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event)  {}
-
-}
+} 
