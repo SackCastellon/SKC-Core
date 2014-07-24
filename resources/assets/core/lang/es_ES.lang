@@ -1,8 +1,0 @@
-// Spanish (es_ES) Localization File By SackCastellon
-
-// Messages
-
-message.version.error=No fue posible comprovar la version de %s!
-message.version.outdated=%s (%s) está desactualizado! Por favor visite %s para conseguir la ultima version (%s)
-message.version.updated=Usted está usando la última version de %s (%s)
-message.version.over=Usted está usando la última version de %s (%s) la cual no ha sido lanzada todavía
