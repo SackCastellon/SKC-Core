@@ -1,0 +1,8 @@
+﻿// English (en_US) Localization File By SackCastellon
+
+// Messages
+
+message.version.error=Could not check version of %s!
+message.version.outdated=%s (%s) is out of date! Please visit %s to get the latest version (%s)
+message.version.updated=You are using the latest version of %s (%s)
+message.version.over=You are using a version of %s (%s) which has not been released yet
