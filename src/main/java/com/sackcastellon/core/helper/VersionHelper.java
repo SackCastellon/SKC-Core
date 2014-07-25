@@ -1,206 +1,110 @@
-/**
- * SKC-Core Mod
- * Copyright © 2013-2014 SackCastellon
- * This modification and his resources are licensed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
- * 
- * 		http://creativecommons.org/licenses/by-nc-sa/3.0/
- */
 package com.sackcastellon.core.helper;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.util.ArrayList;
 
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
+import net.minecraftforge.common.MinecraftForge;
 
-public class VersionHelper {
-
-	private static String LatestVersion;
-	private static String ThreadUrl;
-	private static String ModVersion;
-	private static String ModName;
-
-	private static String VersionUrl = "https://dl.dropboxusercontent.com/u/184200482/Minecraft/Mods/";
+public class VersionHelper
+{
+	public static ArrayList<String> ModsChecked = new ArrayList<String>();
 	
-	public static String MessageCore;
-	public static String MessageCHA;
-	public static String MessageBW;
-
-    public static void check(String ID, String Name, String Version, String Url)
-    {        
-    	String ModID = ID.substring(4);
-    	
-    	ThreadUrl = Url;
-    	ModVersion = Version;
-    	ModName = Name;
-
+	private static Status State;
+	
+	private final static String Checker = "SKC Version Checker";
+	
+	/**
+	 * @param checkparams
+	 * <br>
+	 * 0 - ID<br>
+	 * 1 - NAME<br>
+	 * 2 - VERSION<br>
+	 * 3 - URL
+	 */
+	public static void check(String[] checkparams)
+	{
+		State = null;
+		String LatestVersion = null;
+		int[] LatestVersionSplit = new int[4];
+		int[] ActualVersionSplit = new int[4];
+		
 		try
 		{
-			URL url = new URL(VersionUrl + ModID + "/Versions/1.7.2.version");
+			URL url = new URL("https://dl.dropboxusercontent.com/u/184200482/Minecraft/Mods/" + checkparams[0].substring(4) + "/Versions/" + MinecraftForge.MC_VERSION + ".version");
 	        BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
 	        LatestVersion = in.readLine();
 	        in.close();
-	        
-	        int newVersion = Integer.parseInt(LatestVersion.substring(LatestVersion.lastIndexOf(".") + 1));
-	        int oldVersion = Integer.parseInt(ModVersion.substring(ModVersion.lastIndexOf(".") + 1));
-
-			if (oldVersion < newVersion)
-			{
-				if (ModName == "SKC Core")
-				{
-					setMessageCore(Message.getOutMsg(ModName, ModVersion, ThreadUrl, LatestVersion));
-				}
-				if (ModName == "Craftable Horse Armor")
-				{
-					setMessageCHA(Message.getOutMsg(ModName, ModVersion, ThreadUrl, LatestVersion));
-				}
-				if (ModName == "Better Wood")
-				{
-					setMessageBW(Message.getOutMsg(ModName, ModVersion, ThreadUrl, LatestVersion));
-				}
-				
-				LogHelper.error("SKC Version Checker", ModName + " (" + ModVersion + ") is out of date! Please visit " + ThreadUrl + " to get the latest version (" + LatestVersion +")");
-				
-			}
-			
-			else if (oldVersion == newVersion)
-			{
-				if (ModName == "SKC Core")
-				{
-					setMessageCore(Message.getOkMsg(ModName, ModVersion));
-				}
-				if (ModName == "Craftable Horse Armor")
-				{
-					setMessageCHA(Message.getOkMsg(ModName, ModVersion));
-				}
-				if (ModName == "Better Wood")
-				{
-					setMessageBW(Message.getOkMsg(ModName, ModVersion));
-				}
-				
-				LogHelper.info("SKC Version Checker", "You are using the latest version of " + ModName + " (" + ModVersion + ")");
-			}
-			
-			else if (oldVersion > newVersion)
-			{
-				if (ModName == "SKC Core")
-				{
-					setMessageCore(Message.getOverMsg(ModName, ModVersion));
-				}
-				if (ModName == "Craftable Horse Armor")
-				{
-					setMessageCHA(Message.getOverMsg(ModName, ModVersion));
-				}
-				if (ModName == "Better Wood")
-				{
-					setMessageBW(Message.getOverMsg(ModName, ModVersion));
-				}
-				
-				LogHelper.info("SKC Version Checker", "You are using a version of " + ModName + " (" + ModVersion + ") which has not been released yet");
-			}
-			
-			else
-			{
-				if (ModName == "SKC Core")
-				{
-					setMessageCore(Message.getErrorMsg(ModName));
-				}
-				if (ModName == "Craftable Horse Armor")
-				{
-					setMessageCHA(Message.getErrorMsg(ModName));
-				}
-				if (ModName == "Better Wood")
-				{
-					setMessageBW(Message.getErrorMsg(ModName));
-				}
-				
-				LogHelper.warning("SKC Version Checker", "Could not check version of " + ModName + "!");
-			}
 		}
 		
 		catch (Exception e)
 		{
-			if (ModName == "SKC Core")
+			LogHelper.warning(Checker, "Could not check version of " + checkparams[1] + "!");
+			LatestVersion = "0.0.0.0";
+		}
+		
+		finally
+		{
+			String[] s1 = LatestVersion.split("\\.");
+			String[] s2 = checkparams[2].split("\\.");
+			
+			for(int i = 0; i < 4; ++i)
 			{
-				setMessageCore(Message.getErrorMsg(ModName));
-			}
-			if (ModName == "Craftable Horse Armor")
-			{
-				setMessageCHA(Message.getErrorMsg(ModName));
-			}
-			if (ModName == "Better Wood")
-			{
-				setMessageBW(Message.getErrorMsg(ModName));
+				LatestVersionSplit[i] = Integer.parseInt(s1[i]);
+				ActualVersionSplit[i] = Integer.parseInt(s2[i]);
 			}
 			
-			LogHelper.warning("SKC Version Checker", "Could not check version of " + ModName + "!");
+			State = compareVersions(LatestVersionSplit, ActualVersionSplit);
+			
+			createMessages(checkparams, State, LatestVersion);
 		}
-    }
-    
-	private static void setMessageCore(String par1)
-	{
-    	MessageCore = par1;
-    }
-    
-    private static void setMessageCHA(String par1)
-    {
-    	MessageCHA = par1;
 	}
-    
-    private static void setMessageBW(String par1)
-    {
-    	MessageBW = par1;
-	}
-    
-    public static String getMessageCore()
-    {
-    	return MessageCore;
-    }
-    
-    public static String getMessageCHA()
-    {
-    	return MessageCHA;
-    }
-    
-    public static String getMessageBW()
-    {
-    	return MessageBW;
-    }
-    
-	public static class Message
+	
+	private static Status compareVersions(int[] latest, int[] actual)
 	{
-		private static final EnumChatFormatting reset = EnumChatFormatting.RESET;
-		private static final EnumChatFormatting italic = EnumChatFormatting.ITALIC;
-		private static final EnumChatFormatting d_red = EnumChatFormatting.DARK_RED;
-		private static final EnumChatFormatting red = EnumChatFormatting.RED;
-		private static final EnumChatFormatting green = EnumChatFormatting.GREEN;
-		private static final EnumChatFormatting blue = EnumChatFormatting.BLUE;
-		
-		private static final String preErrorMsg = StatCollector.translateToLocal("message.version.error");
-		private static final String preOutMsg = StatCollector.translateToLocal("message.version.outdated");
-		private static final String preOkMsg = StatCollector.translateToLocal("message.version.updated");
-		private static final String preOverMsg = StatCollector.translateToLocal("message.version.over");
-		
-		private static String getErrorMsg(String ModName)
+		if(latest[0] == 0 && latest[1] == 0 && latest[2] == 0 && latest[3] == 0)
 		{
-			return d_red + String.format(preErrorMsg, ModName).replace(" ", " " + d_red);
+			return Status.ERRORED;
 		}
 		
-		private static String getOutMsg(String ModName, String ModVersion, String ThreadUrl, String LatestVersion)
+		else if(latest[0] == actual[0] && latest[1] == actual[1] && latest[2] == actual[2] && latest[3] == actual[3])
 		{
-			return red + String.format(preOutMsg, ModName, ModVersion, ThreadUrl, LatestVersion).replace(" ", " " + red).replace("http", reset + "" + italic + "http");
+			return Status.UPDATED;
 		}
 		
-		private static String getOkMsg(String ModName, String ModVersion)
+		else
 		{
-			return green + String.format(preOkMsg, ModName, ModVersion).replace(" ", " " + green);
+			return Status.OUTDATED;
 		}
-		
-		private static String getOverMsg(String ModName, String ModVersion)
+	}
+	
+	private static void createMessages(String[] str, Status state, String latestVersion)
+	{
+		switch(state)
 		{
-			return blue + String.format(preOverMsg, ModName, ModVersion).replace(" ", " " + blue);
+		case ERRORED:
+			ModsChecked.add(String.format(EnumChatFormatting.DARK_RED + StatCollector.translateToLocal("message.version.error"), str[1]).replace(" ", " " + EnumChatFormatting.DARK_RED));
+			break;
+		case OUTDATED:
+			ModsChecked.add(String.format(EnumChatFormatting.RED + StatCollector.translateToLocal("message.version.outdated"), str[1], str[2], str[3], latestVersion).replace(" ", " " + EnumChatFormatting.RED).replace("http", EnumChatFormatting.RESET + "http"));
+			break;
+		case UPDATED:
+			ModsChecked.add(String.format(EnumChatFormatting.GREEN + StatCollector.translateToLocal("message.version.updated"), str[1], str[2]).replace(" ", " " + EnumChatFormatting.GREEN));
+			break;
+		default:
+			break;
 		}
+	}
+	
+	public enum Status
+	{
+	//	CHECKING,
+	//	CHECKED,
+		UPDATED,
+		OUTDATED,
+		ERRORED;
 	}
 }

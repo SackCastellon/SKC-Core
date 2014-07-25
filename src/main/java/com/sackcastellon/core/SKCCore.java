@@ -2,9 +2,9 @@
  * SKC-Core Mod
  * Copyright © 2013-2014 SackCastellon
  * This modification and his resources are licensed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
+ * Creative Commons Attribution-NonCommercial-ShareAlike 4.0 Unported License.
  * 
- * 		http://creativecommons.org/licenses/by-nc-sa/3.0/
+ * 		http://creativecommons.org/licenses/by-nc-sa/4.0/
  */
 package com.sackcastellon.core;
 
@@ -26,8 +26,8 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
 @Mod(modid=Reference.ID, name=Reference.NAME, version=Reference.VERSION, dependencies=Reference.DEPENDENCIES)
-public class SKCCore {
-
+public class SKCCore
+{
 	@Instance(Reference.ID)
 	public static SKCCore instance;
 	
@@ -35,14 +35,15 @@ public class SKCCore {
 	public static CommonProxy proxy;
 	
 	@EventHandler
-	public void preInit(FMLPreInitializationEvent event)  {
-		
+	public void preInit(FMLPreInitializationEvent event)
+	{
 		FMLCommonHandler.instance().bus().register(new SKCEvents());
 		
 		ConfigHandler.loadConfig(new File(event.getModConfigurationDirectory(), Reference.ConfigPath));
 		
-		if (ConfigHandler.CheckVersion) {
-			VersionHelper.check(Reference.ID, Reference.NAME, Reference.VERSION, Reference.URL);
+		if (ConfigHandler.CheckVersion)
+		{
+			VersionHelper.check(Reference.CheckParams);
 		}
 		
 	}

@@ -11,18 +11,26 @@ SKC-Core Mod
 
 * * *
 
+### Description ###
+
+**SKC Core**, is an API which contains some files which are needed by my other mods to work.
+
+* * *
+
 ### Licences ###
 
 #### License of The Mod ####
 
-![License](http://i.creativecommons.org/l/by-nc-sa/3.0/80x15.png)
+![License](http://i.creativecommons.org/l/by-nc-sa/4.0/80x15.png)
 
-[SKC-Core Mod](http://www.minecraftforum.net/topic/1909056-) by [SackCastellon](http://www.minecraftforum.net/user/1775848-sackcastellon/) is licensed under a [Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.](http://creativecommons.org/licenses/by-nc-sa/3.0/)
+[SKC-Core Mod](http://www.minecraftforum.net/topic/1909056-) by [SackCastellon](http://www.minecraftforum.net/user/1775848-sackcastellon/) is licensed under a [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 Unported License.](http://creativecommons.org/licenses/by-nc-sa/4.0/)
 
-#### License of the Source Code ####
+#### Mod Packs ####
 
-![License](http://i.creativecommons.org/l/by/3.0/80x15.png)
+You are free to use this mod, "SKC-Core" in your mod pack if and only if you adhere to the following:
 
-[SKC-Core Mod source code](https://github.com/SackCastellon/SKC-Core) by [SackCastellon](http://www.minecraftforum.net/user/1775848-sackcastellon/) is licensed under a [Creative Commons Attribution 3.0 Unported License.](http://creativecommons.org/licenses/by/3.0/)
+* Link to this thread.
+* Give proper credits to the original author: SackCastellon
+* Keep it non-profit.
 
 * * *
